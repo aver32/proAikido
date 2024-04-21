@@ -1,0 +1,65 @@
+<!-- base.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой сайт</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Подключите Bootstrap или другие стили здесь -->
+</head>
+<body>
+     <header>
+        <!-- Навигационная панель -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center" style="border-bottom: 2px solid #B61A1A; ; margin-bottom: 20px;">
+            <!-- Логотип -->
+            <a class="navbar-brand" href="#"><img src="{% static 'images/logo.svg' %}" alt="Логотип"></a>
+            <!-- Вертикальная черта -->
+            <div class="vertical-divider"></div>
+            <!-- Кнопки навигации -->
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/main_screen">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ученики</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Цены</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Тренеры</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Карта</a></li>
+                <!-- Добавьте ссылки на другие страницы здесь -->
+            </ul>
+            <!-- Кнопка профиля -->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none; background-image: none;">
+        <img src="{% static 'images/profile_icon.svg' %}" alt="Профиль" width="30" height="30">
+    </button>
+                <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="/profile_screen">Мой профиль</a>
+                    <a class="dropdown-item" href="#">Редактировать</a>
+                    <a class="dropdown-item" href="#">Мои карты</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Выход</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <!-- Дополнительные скрипты или контент могут быть добавлены здесь -->
+</body>
+</html>
+
+<style>
+    /* Стили для вертикальной черты */
+    .vertical-divider {
+        border-left: 1px solid #ddd;
+        height: 30px;
+        margin: 0 10px; /* Расстояние между логотипом и кнопками */
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+</style>
