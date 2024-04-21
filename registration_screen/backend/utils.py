@@ -24,4 +24,4 @@ def create_user_from_registration_screen(request):
 
     # Перенаправляем пользователя на другую страницу после регистрации
     # TODO: Пока что стоит заглушка
-    return HttpResponseRedirect('/success/')
+    return HttpResponseRedirect('/main_screen')
