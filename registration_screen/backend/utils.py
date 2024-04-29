@@ -1,10 +1,10 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import redirect
 
 from registration_screen.models import User, UserType
 
 
-def create_user_from_registration_screen(request):
+def create_user_from_registration_screen(request: HttpRequest):
     full_name = request.POST.get('username')
     email_or_phone = request.POST.get('email_or_phone')
     password = request.POST.get('password')
@@ -13,19 +13,20 @@ def create_user_from_registration_screen(request):
 
     # Создаем объект тренера или студента в базе данных
     if "@" in email_or_phone:
-        User.objects.create(
+        user = User.objects.create(
             name=full_name,
             email=email_or_phone,
             password=password,
             user_type=user_type
         )
     else:
-        User.objects.create(
+        user = User.objects.create(
             name=full_name,
             number=email_or_phone,
             password=password,
             user_type=user_type
         )
+    request.session['current_user_id'] = user.id
 
     # Перенаправляем пользователя на другую страницу после регистрации
     return redirect('/main_screen')
