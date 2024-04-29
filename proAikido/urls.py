@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+import map_screen.views
 import registration_screen.views
 
 urlpatterns = [
@@ -27,4 +28,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('registration/', registration_screen.views.registration, name='registration'),
     path('login/', registration_screen.views.login, name='login'),
+    path('maps/', map_screen.views.maps, name='maps')
 ]
