@@ -25,6 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('profile_screen.urls')),
     path('', include('main.urls')),
-    path('registration/', registration_screen.views.registration),
-    path('login/', registration_screen.views.login),
+    path('registration/', registration_screen.views.registration, name='registration'),
+    path('login/', registration_screen.views.login, name='login'),
 ]
