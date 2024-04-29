@@ -1,4 +1,4 @@
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
 
 
@@ -20,3 +20,6 @@ class User(models.Model):
         # Хешируем пароль перед сохранением объекта
         self.password = make_password(self.password)
         super().save(*args, **kwargs)
+
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
