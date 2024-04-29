@@ -5,5 +5,11 @@ from registration_screen.backend.utils import create_user_from_registration_scre
 def registration(request):
     if request.method == 'POST':
         return create_user_from_registration_screen(request)
-    return render(request, 'registration.html')
+    return render(request, 'registration_screen/registration.html')
+
+
+def login(request):
+    if request.method == 'POST':
+        return create_user_from_registration_screen(request)
+    return render(request, 'registration_screen/login.html')
 

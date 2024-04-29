@@ -26,4 +26,5 @@ urlpatterns = [
     path('', include('profile_screen.urls')),
     path('', include('main.urls')),
     path('registration/', registration_screen.views.registration),
+    path('login/', registration_screen.views.login),
 ]
