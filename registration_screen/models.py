@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
+from django import forms
 
 
 class UserType(models.IntegerChoices):
@@ -25,10 +26,11 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     number = models.CharField("Телефон", default="", max_length=255)
     user_type = models.IntegerField("Тип пользователя", choices=UserType.choices, default=UserType.STUDENT)
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
         # Хешируем пароль перед сохранением объекта
-        self.password = make_password(self.password)
+        #self.password = make_password(self.password)
         super().save(*args, **kwargs)
 
     def check_password(self, raw_password):
@@ -40,3 +42,8 @@ class User(models.Model):
     def __setstate__(self, state):
         self.__dict__.update(state)
 
+
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['profile_image']
