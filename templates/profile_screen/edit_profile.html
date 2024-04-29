@@ -1,0 +1,65 @@
+{% extends 'profile_screen/base.html' %}
+
+{% load static %}
+
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Профиль</h1>
+            <p>Личная информация</p>
+            <form method="post" action="{% url 'update_user_profile' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputFullName">Введите ФИО</label>
+                    <input type="text" class="form-control" id="inputFullName" name="inputFullName"
+                           placeholder="Фамилия Имя Отчество" value="{{ full_name }}">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputPhoneNumber">Введите номер телефона</label>
+                        <input type="text" class="form-control" id="inputPhoneNumber" name="inputPhoneNumber"
+                               placeholder="Введите номер телефона" value="{{ number }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" name="inputEmail"
+                               placeholder="Введите Email" value="{{ email }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputClubAddress">Введите адрес клуба</label>
+                    <input type="text" class="form-control" id="inputClubAddress" name="inputClubAddress"
+                           placeholder="Введите адрес клуба" value="{{ club_address }}">
+                </div>
+                <p class="additional-info-label">О себе</p>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputDescription">Описание</label>
+                        <textarea class="form-control" id="inputDescription" name="inputDescription" rows="3">{{ description }}</textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputAchievements">Опыт и достижения</label>
+                        <textarea class="form-control" id="inputAchievements" name="inputAchievements" rows="3">{{ achievements }}</textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEducation">Образование</label>
+                        <textarea class="form-control" id="inputEducation" name="inputEducation" rows="3">{{ education }}</textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .additional-info-label {
+        margin-top: 40px; /* Отступ сверху */
+        font-size: 20px; /* Увеличение размера текста */
+    }
+</style>
+
+{% endblock %}
