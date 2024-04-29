@@ -10,7 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Подключите Bootstrap или другие стили здесь -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=x" type="text/javascript"></script>
+    <script src="{% static 'js/map_script.js' %}" type="text/javascript"></script>
 </head>
 <body>
      <header>
@@ -26,7 +27,7 @@
                 <li class="nav-item"><a class="nav-link" href="#">Ученики</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Цены</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Тренеры</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Карта</a></li>
+                <li class="nav-item"><a class="nav-link" href="/maps">Карта</a></li>
                 <!-- Добавьте ссылки на другие страницы здесь -->
             </ul>
             <!-- Кнопка профиля -->
@@ -60,5 +61,9 @@
     }
     .dropdown-toggle::after {
         display: none;
+    }
+    #map {
+        width: 70%;
+        height: 700px;
     }
 </style>

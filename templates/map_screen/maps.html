@@ -1,0 +1,29 @@
+{% extends 'profile_screen/base.html' %}
+
+{% load static %}
+
+{% block title %}Карты{% endblock %}
+
+{% block content %}
+
+<div class="container min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <h2>Расположение</h2>
+        <form id="locationForm">
+            <div class="form-group">
+                <label for="clubSelect">Выберите интересующийся клуб из списка</label>
+                <select class="form-control" id="clubSelect">
+                    <option value="ул. Рябинина, д. 19, г. Екатеринбург">ул. Рябинина, д. 19, г. Екатеринбург</option>
+                    <option value="ул. Мира, 47, корп. 4, г. Екатеринбург">ул. Мира, 47, корп. 4, г. Екатеринбург</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-dark rounded-pill d-block mx-auto mb-3 btn-lg">Найти на карте</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div id="map" style="height: 400px;"></div>
+    </div>
+</div>
+
+
+{% endblock %}
