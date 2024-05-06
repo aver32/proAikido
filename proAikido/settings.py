@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration_screen',
-    'map_screen'
+    'map_screen',
+    'main_screen'
 ]
 
 MIDDLEWARE = [
