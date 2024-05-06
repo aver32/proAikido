@@ -19,14 +19,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+import main_screen.views
 import map_screen.views
 import registration_screen.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('profile_screen.urls')),
-    path('', include('main.urls')),
     path('registration/', registration_screen.views.registration, name='registration'),
     path('login/', registration_screen.views.login, name='login'),
-    path('maps/', map_screen.views.maps, name='maps')
+    path('maps/', map_screen.views.maps, name='maps'),
+    path('main_screen/', main_screen.views.main_screen, name='main_screen')
 ]
