@@ -1,0 +1,91 @@
+{% extends 'profile_screen/base.html' %}
+
+{% load static %}
+
+{% block title %}Ученики{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4" style="color: #B61A1A;">Мои ученики</h2>
+    <hr>
+    <div class="student">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <img src="{% static 'images/profile_icon.svg' %}" class="student-image" alt="Дикиджи Владислав Максимович">
+            </div>
+            <div class="col-md-9">
+                <h3>Дикиджи Владислав Максимович</h3>
+                <p><strong>Расписание занятий на неделю:</strong><br>
+                Понедельник 19:00 - 20:00<br>
+                Среда 19:30 - 20:30<br>
+                Пятница 17:00 - 18:00</p>
+                <a href="#">Ссылка на чек об оплате</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="student">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <img src="{% static 'images/profile_icon.svg' %}" class="student-image" alt="Смелянский Андрей Леонидович">
+            </div>
+            <div class="col-md-9">
+                <h3>Смелянский Андрей Леонидович</h3>
+                <p><strong>Расписание занятий на неделю:</strong><br>
+                Вторник 19:00 - 20:00<br>
+                Пятница 19:30 - 20:30<br>
+                Суббота 17:00 - 18:00<br>
+                Воскресенье 10:00 - 11:00</p>
+                <a href="#">Ссылка на чек об оплате</a>
+            </div>
+        </div>
+    </div>
+    <h2 class="mt-4" style="color: #B61A1A;">Мои группы</h2>
+    <hr>
+    <div class="group">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <img src="{% static 'images/group_placeholder.svg' %}" class="group-image" alt="Группа 1">
+            </div>
+            <div class="col-md-9">
+                <h3>Группа 1</h3>
+                <p><strong>Расписание занятий на неделю:</strong><br>
+                Понедельник 17:00 - 18:00<br>
+                Среда 16:00 - 17:00<br>
+                Пятница 18:00 - 19:00</p>
+                <a href="#">Состав группы</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="group">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <img src="{% static 'images/group_placeholder.svg' %}" class="group-image" alt="Группа 2">
+            </div>
+            <div class="col-md-9">
+                <h3>Группа 2</h3>
+                <p><strong>Расписание занятий на неделю:</strong><br>
+                Понедельник 15:00 - 16:00<br>
+                Среда 13:30 - 14:30<br>
+                Пятница 10:00 - 11:00</p>
+                <a href="#">Состав группы</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .student-image, .group-image {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .student h3, .group h3 {
+        margin-top: 0;
+    }
+</style>
+
+{% endblock %}

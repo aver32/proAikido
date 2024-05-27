@@ -1,0 +1,48 @@
+{% extends 'profile_screen/base.html' %}
+
+{% load static %}
+
+{% block title %}Тренеры{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center" style="color: #B61A1A;">Наши тренеры</h1>
+    <div class="row">
+        {% for trainer in trainers %}
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            {% if trainer.profile_image %}
+                                <img src="{{ trainer.profile_image.url }}" class="card-img" alt="{{ trainer.name }}">
+                            {% else %}
+                                <img src="{% static 'images/profile_pic.png' %}" class="card-img" alt="{{ trainer.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ trainer.name }}</h5>
+                                <p class="card-text"><strong>Описание:</strong> {{ trainer.description }}</p>
+                                <p class="card-text"><strong>Образование:</strong> {{ trainer.education }}</p>
+                                <p class="card-text"><strong>Опыт и достижения:</strong> {{ trainer.achievements }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if not forloop.last and not forloop.counter == middle_index %}
+                    <hr class="hr-red">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .hr-red {
+    border-color: #B61A1A;
+    border-width: 3px 0;
+    width: 100%;
+}
+</style>
+
+{% endblock %}

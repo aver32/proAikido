@@ -21,9 +21,21 @@
             <p>{{ achievements }}</p>
         </div>
         <div class="col-md-6">
-            <!-- Фото человека -->
-            <img src="{% static 'images/profile_pic.png' %}" alt="Фото профиля" class="profile-picture">
+            {% if profile_image %}
+                <img src="{{ profile_image.url }}" class="profile-picture" alt="{{ trainer.name }}">
+            {% else %}
+                <img src="{% static 'images/profile_pic.png' %}" class="profile-picture" alt="{{ trainer.name }}">
+            {% endif %}
         </div>
     </div>
 </div>
+
+<style>
+    .profile-picture {
+    width: 300px;
+    height: 300px;
+    object-fit: cover; /* Это свойство заставляет изображение заполнять заданные размеры */
+}
+</style>
+
 {% endblock %}

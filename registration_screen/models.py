@@ -1,11 +1,12 @@
+import json
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
 from django import forms
 
 
 class UserType(models.IntegerChoices):
-    TRAINER = 1, 'Тренер'
-    STUDENT = 2, 'Студент'
+    STUDENT = 1, 'Студент'
+    TRAINER = 2, 'Тренер'
 
     def __getstate__(self):
         return self.__dict__
@@ -27,6 +28,25 @@ class User(models.Model):
     number = models.CharField("Телефон", default="", max_length=255)
     user_type = models.IntegerField("Тип пользователя", choices=UserType.choices, default=UserType.STUDENT)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    students_id = models.TextField(verbose_name="ID учеников", blank=True, default="[]")
+
+    def set_students_id(self, int_list):
+        self.students_id = json.dumps(int_list)
+
+    def get_students_id(self):
+        return json.loads(self.students_id)
+
+    def add_student_id(self, student_id):
+        id_list = self.get_students_id()
+        if student_id not in id_list:
+            id_list.append(student_id)
+            self.set_students_id(id_list)
+
+    def remove_student_id(self, student_id):
+        id_list = self.get_students_id()
+        if student_id in id_list:
+            id_list.remove(student_id)
+            self.set_students_id(id_list)
 
     def save(self, *args, **kwargs):
         # Хешируем пароль перед сохранением объекта
