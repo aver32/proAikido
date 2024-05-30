@@ -26,10 +26,13 @@ import registration_screen.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('profile_screen.urls')),
+    path('', include('trainers_screen.urls')),
+    path('', include('students.urls')),
+    path('', include('prices.urls')),
     path('registration/', registration_screen.views.registration, name='registration'),
     path('login/', registration_screen.views.login, name='login'),
     path('maps/', map_screen.views.maps, name='maps'),
     path('main_screen/', main_screen.views.main_screen, name='main_screen'),
     path('save/', main_screen.views.save_data, name='save_data'),
     path('delete/', main_screen.views.delete_data, name='delete_data'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,74 @@
+{% extends 'profile_screen/base.html' %}
+
+{% load static %}
+
+{% block title %}Ученики{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4" style="color: #B61A1A;">Мои ученики</h2>
+    <hr>
+    {% if students %}
+        {% for student in students %}
+        <div class="student">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <img src="{% static 'images/profile_icon.svg' %}" class="student-image" alt="{{ student.full_name }}">
+                </div>
+                <div class="col-md-9">
+                    <h3>{{ student.user.name }}</h3>
+                    <p><strong>Расписание занятий на неделю:</strong><br>
+                    {{ student.schedule_str|linebreaksbr }}
+                    </p>
+                    <a href="#">Ссылка на чек об оплате</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+        <div class="text-center" style="font-size: 24px;">
+            <p>К вам никто не записан</p>
+        </div>
+    {% endif %}
+    <h2 class="mt-4" style="color: #B61A1A;">Мои группы</h2>
+    <hr>
+    {% if groups %}
+        {% for group in groups %}
+        <div class="group">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <img src="{% static 'images/group_placeholder.svg' %}" class="group-image" alt="{{ group.name }}">
+                </div>
+                <div class="col-md-9">
+                    <h3>Группа {{ group.id }}</h3>
+                    <p><strong>Расписание занятий на неделю:</strong><br>
+                    {{ group.schedule_str|linebreaksbr }}
+                    </p>
+                    <a href="#">Состав группы</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+        <div class="text-center" style="font-size: 24px;">
+            <p>Вы не тренируете ни одну группу</p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .student-image, .group-image {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .student h3, .group h3 {
+        margin-top: 0;
+    }
+</style>
+
+{% endblock %}
