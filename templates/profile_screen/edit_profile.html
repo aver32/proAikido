@@ -58,7 +58,7 @@
         <div class="col-md-6">
             <label for="inputImage" id="imageLabel" style="position: relative; display: inline-block;">
                 <div style="position: absolute; top: 0; left: 0; width: 200px; height: 200px; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
-                    <img id="previewImage" src="{% if profile_image %}{{ profile_image.url }}{% else %}{% static 'images/profile_pic.png' %}{% endif %}" alt="Profile Image" class="profile-picture" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img id="previewImage" src="{% if profile_image %}{{ profile_image.url }}{% else %}{% static 'images/profile_pic.svg' %}{% endif %}" alt="Profile Image" class="profile-picture" style="width: 100%; height: 100%; object-fit: cover;">
                     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; font-size: 48px; color: rgba(255, 255, 255, 0.8); cursor: pointer; display: flex; justify-content: center; align-items: center;">+</div>
                 </div>
             </label>

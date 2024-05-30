@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_protect
+
 from registration_screen.models import User, ProfileImageForm
 
 def profile_screen(request):
@@ -20,6 +22,7 @@ def profile_screen(request):
         )
     return redirect('login')
 
+@csrf_protect
 def edit_profile(request):
     current_user_id = request.session.get('current_user_id')
     if current_user_id:
