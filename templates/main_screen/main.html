@@ -15,44 +15,150 @@
     .red-text {
       color: red;
     }
-  </style>
+    .form-control {
+        border-radius: 40px;
+        border: 2px solid #000;
+    }
+</style>
 <div class="container">
-<h4 class="center-text">
-      Моё <span class="red-text">расписание</span>
+    <h4 class="center-text">
+        Моё <span class="red-text">расписание</span>
     </h4>
-<table class="table table-bordered">
+    <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>Время</th>
-                <th>Понедельник</th>
-                <th>Вторник</th>
-                <th>Среда</th>
-                <th>Четверг</th>
-                <th>Пятница</th>
-                <th>Суббота</th>
-                <th>Воскресенье</th>
-            </tr>
+        <tr>
+            <th>Время</th>
+            <th>Понедельник</th>
+            <th>Вторник</th>
+            <th>Среда</th>
+            <th>Четверг</th>
+            <th>Пятница</th>
+            <th>Суббота</th>
+            <th>Воскресенье</th>
+        </tr>
         </thead>
         <tbody>
-            {% for row in table_data %}
-                <tr>
-                    {% for cell in row %}
-                        <td class="clickable-cell">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ cell }}
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Редактировать</a></li>
-                                    <li><a class="dropdown-item" href="#">Удалить</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tr>
+        {% for row in table_data %}
+        <tr>
+            {% for cell in row %}
+            {% if forloop.counter == 1 %}
+            <td>
+                {{ cell }}
+            </td>
+            {% else %}
+            <td class="clickable-cell">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ cell }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <button class="dropdown-item edit-button" data-time="{{ row.0 }}"
+                                    data-column="{{ forloop.counter }}">Редактировать
+                            </button>
+                        </li>
+                        <li>
+                            <button id="delete-button" class="dropdown-item delete-button" data-time="{{ row.0 }}"
+                                    data-column="{{ forloop.counter }}">Удалить
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            {% endif %}
             {% endfor %}
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('.edit-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const row = button.dataset.time;
+            const column = button.dataset.column;
+            $('#editModal').modal('show'); // Открываем модальное окно при клике на кнопку
+            document.querySelector('#save-button').dataset.time = row;
+            document.querySelector('#save-button').dataset.column = column;
+          });
+        });
+        document.querySelectorAll('.delete-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const time = button.dataset.time;
+            const column = button.dataset.column;
+            const formData = new FormData();
+            formData.append('time', time);
+            formData.append('column', column);
+
+            fetch('/delete/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }).then(response => {
+                console.log('Ответ сервера:', response);
+                if (response.ok) {
+                    location.reload();
+                }
+            }).catch(error => {
+                console.error('Ошибка:', error);
+            });
+          });
+        });
+    </script>
 </div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Добавить занятие</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Выберите из списка ученика или группу</p>
+                <select id="student-select" class="form-control">
+                    {% for student in students %}
+                    <option value="{{ student.id }}">{{ student.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button id="save-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', function () {
+        const selectedStudentId = document.querySelector('#student-select').value;
+        const formData = new FormData();
+        const time = this.dataset.time;
+        const column = this.dataset.column;
+        formData.append('student_id', selectedStudentId);
+        formData.append('time', time);
+        formData.append('column', column);
+
+        fetch('/save/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        }).then(response => {
+            console.log('Ответ сервера:', response);
+            if (response.ok) {
+                location.reload();
+            }
+        }).catch(error => {
+            console.error('Ошибка:', error);
+        });
+    });
+});
+
+</script>
 {% endblock %}
