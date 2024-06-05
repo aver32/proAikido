@@ -39,7 +39,8 @@ def edit_profile(request):
                 "education": current_user.education,
                 "achievements": current_user.achievements,
                 "profile_image": current_user.profile_image,
-                'profile_form': ProfileImageForm(instance=current_user)
+                'profile_form': ProfileImageForm(instance=current_user),
+                "user": current_user
             }
         )
     return redirect('login')

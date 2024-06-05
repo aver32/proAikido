@@ -12,7 +12,19 @@
             <p>Личная информация</p>
             <form method="post" action="{% url 'update_user_profile' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ profile_form.as_p }}
+
+                <div class="form-group">
+                    <label for="inputProfileImage">Фотография профиля</label>
+                    <div class="profile-image-container">
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}?{{ user.profile_image.url|length }}" alt="Profile Image" id="profileImage" class="img-thumbnail">
+                        {% else %}
+                            <img src="{% static 'default_profile_image.png' %}" alt="Default Profile Image" id="profileImage" class="img-thumbnail">
+                        {% endif %}
+                        <input type="file" id="inputProfileImage" name="profile_image" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="inputFullName">Введите ФИО</label>
                     <input type="text" class="form-control" id="inputFullName" name="inputFullName"
@@ -55,15 +67,6 @@
                 <button type="submit" class="btn btn-dark btn-lg btn-block">Сохранить изменения</button>
             </form>
         </div>
-        <div class="col-md-6">
-            <label for="inputImage" id="imageLabel" style="position: relative; display: inline-block;">
-                <div style="position: absolute; top: 0; left: 0; width: 200px; height: 200px; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
-                    <img id="previewImage" src="{% if profile_image %}{{ profile_image.url }}{% else %}{% static 'images/profile_pic.svg' %}{% endif %}" alt="Profile Image" class="profile-picture" style="width: 100%; height: 100%; object-fit: cover;">
-                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; font-size: 48px; color: rgba(255, 255, 255, 0.8); cursor: pointer; display: flex; justify-content: center; align-items: center;">+</div>
-                </div>
-            </label>
-            <input type="file" class="form-control-file" id="inputImage" name="profile_image" style="display: none;">
-        </div>
     </div>
 </div>
 
@@ -72,26 +75,61 @@
         margin-top: 40px; /* Отступ сверху */
         font-size: 20px; /* Увеличение размера текста */
     }
+
+    .profile-form {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 20px;
+    }
+
+    .profile-image-container {
+        position: relative;
+        cursor: pointer;
+        grid-column: 1 / 2; /* Помещаем картинку в первый столбец */
+    }
+
+    .profile-image-container img {
+        width: 200px; /* Увеличиваем размер картинки */
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+    }
+
+    .profile-image-container input[type="file"] {
+        display: none;
+    }
+
+    .form-group {
+        grid-column: 2 / 3; /* Помещаем поля формы во второй столбец */
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+        font-size: 1.2em; /* Увеличиваем размер текста в полях формы */
+    }
+
+    .form-group label {
+        font-size: 1.2em; /* Увеличиваем размер текста для меток */
+    }
+
+    .additional-info-label {
+        margin-top: 40px;
+        font-size: 20px;
+    }
 </style>
 
 <script>
-    function loadImage(event) {
-        var input = event.target;
-        var reader = new FileReader();
-
-        reader.onload = function() {
-            var dataURL = reader.result;
-            var img = document.getElementById('previewImage');
-            img.src = dataURL;
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
-
-    document.getElementById('imageLabel').addEventListener('click', function() {
-        document.getElementById('inputImage').click();
+    document.getElementById('profileImage').addEventListener('click', function() {
+        document.getElementById('inputProfileImage').click();
     });
 
-    document.getElementById('inputImage').addEventListener('change', loadImage);
+    document.getElementById('inputProfileImage').addEventListener('change', function() {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImage').src = e.target.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+    });
 </script>
+
 {% endblock %}

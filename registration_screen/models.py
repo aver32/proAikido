@@ -81,10 +81,16 @@ class User(models.Model):
     def __setstate__(self, state):
         self.__dict__.update(state)
 
+    def __str__(self):
+        return f"{self.name} ({self.get_user_type_display()})"
+
 
 class Group(models.Model):
     id = models.AutoField(primary_key=True)
     schedule_str = models.TextField(verbose_name="Расписание", blank=True, default="Расписание отсутствует")
+
+    def __str__(self):
+        return f"{self.id} ({self.schedule_str})"
 
 
 class ProfileImageForm(forms.ModelForm):

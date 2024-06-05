@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
+from main_screen.models import Schedule
 from registration_screen.models import User, UserType, Group
 
 
@@ -21,6 +22,11 @@ def show_students(request):
         current_user = get_object_or_404(User, pk=current_user_id)
         students_id_list = current_user.get_students_id()
 
+        schedules = Schedule.objects.filter(
+            student_id__in=students_id_list,
+            trainer_id=current_user
+        )
+
         students = User.objects.filter(id__in=students_id_list)
         schedule_str =  f"Вторник 19:00 - 20:00\n" \
                         f"Пятница 19:30 - 20:30\n" \
@@ -29,6 +35,10 @@ def show_students(request):
 
         temp_students_list = []
         for student in students:
+            # schedule_str = ""
+            # for schedule in schedules:
+            #     if schedule.student_id == student.id:
+            #         schedule_str += f"{schedule.schedule_date} {schedule.schedule_time_start} {schedule.schedule_time_end}\n"
             temp_students_list.append(TempStudentUser(student, schedule_str))
 
         groups_id_list = current_user.get_groups_id()

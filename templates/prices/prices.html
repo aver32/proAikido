@@ -6,28 +6,184 @@
 
 {% block content %}
 <div class="container">
-    {% for block in blocks %}
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-12">
+            <h2>Групповые занятия</h2>
+
             <div class="special-block">
-                <div class="block-header">{{ block.header }}</div>
+                <div class="block-header">Разовое посещение</div>
                 <div class="block-content">
                     <table class="table">
                         <tbody>
-                            {% for row in block.content %}
                             <tr>
-                                {% for cell in row %}
-                                <td {% if not cell %} class="empty"{% endif %}>{{ cell }}</td>
-                                {% endfor %}
+                                <td rowspan="2" class="filled">Кол-во занятий</td>
+                                <td colspan="2" class="filled">Стоимость занятий</td>
                             </tr>
-                            {% endfor %}
+                            <tr>
+                                <td class="filled">Взрослые<br>(от 17 лет)</td>
+                                <td class="filled">Дети<br>(от 3 до 16 лет)</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">1</td>
+                                <td class="filled">{{ single_visit.adults_price }} руб</td>
+                                <td class="filled">{{ single_visit.children_price }} руб</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <div class="special-block">
+                <div class="block-header">Абонементы – занятия по 90 минут</div>
+                <div class="block-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td rowspan="2" class="filled">Длительность</td>
+                                <td rowspan="2" class="filled">Кол-во занятий</td>
+                                <td colspan="2" class="filled">Стоимость занятий</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">Взрослые<br>(от 17 лет)</td>
+                                <td class="filled">Дети<br>(от 3 до 16 лет)</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">90 мин</td>
+                                <td class="filled">8</td>
+                                <td class="filled">{{ subscription_90_8.adults_price }} руб</td>
+                                <td class="filled">{{ subscription_90_8.children_price }} руб</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">90 мин</td>
+                                <td class="filled">12</td>
+                                <td class="filled">{{ subscription_90_12.adults_price }} руб</td>
+                                <td class="filled">{{ subscription_90_12.children_price }} руб</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="special-block">
+                <div class="block-header">Абонементы – занятия по 60 минут</div>
+                <div class="block-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td rowspan="2" class="filled">Длительность</td>
+                                <td rowspan="2" class="filled">Кол-во занятий</td>
+                                <td colspan="2" class="filled">Стоимость занятий</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">Взрослые<br>(от 17 лет)</td>
+                                <td class="filled">Дети<br>(от 3 до 16 лет)</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">60 мин</td>
+                                <td class="filled">8</td>
+                                <td class="filled">{{ subscription_60_8.adults_price }} руб</td>
+                                <td class="filled">{{ subscription_60_8.children_price }} руб</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">60 мин</td>
+                                <td class="filled">12</td>
+                                <td class="filled">{{ subscription_60_12.adults_price }} руб</td>
+                                <td class="filled">{{ subscription_60_12.children_price }} руб</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h2>Индивидуальные занятия</h2>
+
+            <div class="special-block">
+                <div class="block-header">Разовое посещение</div>
+                <div class="block-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td rowspan="2" class="filled">Кол-во занятий</td>
+                                <td colspan="2" class="filled">Стоимость занятий</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">Взрослые<br>(от 17 лет)</td>
+                                <td class="filled">Дети<br>(от 3 до 16 лет)</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">1</td>
+                                <td class="filled">{{ individual_single_visit.adults_price }} руб</td>
+                                <td class="filled">{{ individual_single_visit.children_price }} руб</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="special-block">
+                <div class="block-header">Абонементы – занятия по 90 минут</div>
+                <div class="block-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td rowspan="2" class="filled">Длительность</td>
+                                <td rowspan="2" class="filled">Кол-во занятий</td>
+                                <td colspan="2" class="filled">Стоимость занятий</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">Взрослые<br>(от 17 лет)</td>
+                                <td class="filled">Дети<br>(от 3 до 16 лет)</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">90 мин</td>
+                                <td class="filled">8</td>
+                                <td class="filled">{{ individual_subscription_90_8.adults_price }} руб</td>
+                                <td class="filled">{{ individual_subscription_90_8.children_price }} руб</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">90 мин</td>
+                                <td class="filled">12</td>
+                                <td class="filled">{{ individual_subscription_90_12.adults_price }} руб</td>
+                                <td class="filled">{{ individual_subscription_90_12.children_price }} руб</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="special-block">
+                <div class="block-header">Абонементы – занятия по 60 минут</div>
+                <div class="block-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td rowspan="2" class="filled">Длительность</td>
+                                <td rowspan="2" class="filled">Кол-во занятий</td>
+                                <td colspan="2" class="filled">Стоимость занятий</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">Взрослые<br>(от 17 лет)</td>
+                                <td class="filled">Дети<br>(от 3 до 16 лет)</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">60 мин</td>
+                                <td class="filled">8</td>
+                                <td class="filled">{{ individual_subscription_60_8.adults_price }} руб</td>
+                                <td class="filled">{{ individual_subscription_60_8.children_price }} руб</td>
+                            </tr>
+                            <tr>
+                                <td class="filled">60 мин</td>
+                                <td class="filled">12</td>
+                                <td class="filled">{{ individual_subscription_60_12.adults_price }} руб</td>
+                                <td class="filled">{{ individual_subscription_60_12.children_price }} руб</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
-    {% endfor %}
 </div>
 
 <style>
@@ -38,13 +194,25 @@
     }
     .table td {
         border: 1px solid #000;
-        padding: 5px; /* Оставим отступ по умолчанию */
-        word-wrap: break-word; /* автоматический перенос слов */
-        width: 150px; /* Задаем фиксированную ширину ячейкам */
+        padding: 10px;
+        word-wrap: break-word;
+        text-align: center;
+        vertical-align: middle;
     }
-    .empty {
-        border-top: none;
+    .filled {
+        background-color: #F4F5F6;
+        font-weight: bold;
+    }
+    .special-block {
+        margin-bottom: 20px;
+    }
+    .block-header {
+        background-color: #444;
+        color: #fff;
+        padding: 10px;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        text-align: center;
     }
 </style>
-
 {% endblock %}
